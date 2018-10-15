@@ -30,8 +30,10 @@ export default class App extends React.Component {
 
         return elements.map( ( element, index ) => {
             const moduleId = element.dataset.stylaModuleId;
+            const counterOverwrite = element.dataset.stylaCounterOverwrite;
+            const finalCounter = counterOverwrite || counter + index;
 
-            return ReactDOM.createPortal( <Module moduleId={ moduleId } counter={ counter + index } />, element );
+            return ReactDOM.createPortal( <Module moduleId={ moduleId } counter={ finalCounter } />, element );
         } );
     }
 }

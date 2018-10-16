@@ -14,3 +14,19 @@ npm start
 # open local project:
 open http://localhost:8080
 ```
+
+## Events
+
+In order to test the behavior on updates you can play with some events
+in the developer console
+
+```javascript
+// remove APP:
+pubSub.publish( 'DESTROY' );
+
+// initialize app:
+pubSub.publish( 'READY' );
+
+// update (will add a new module element)
+pubSub.publish( 'UPDATE' );
+```

@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { Module } from './components/Module.jsx';
 
 export default class App extends React.Component {
+    static propTypes = {
+        elements : PropTypes.arrayOf( PropTypes.instanceOf( HTMLDivElement ) ),
+    };
+
     constructor( props ) {
         super( props );
 
@@ -12,9 +17,7 @@ export default class App extends React.Component {
         };
     }
     componentDidMount() {
-        const elements = Array.from( document.querySelectorAll( '[data-styla-module-id]' ) );
-
-        this.setState( { elements } );
+        console.log( 'app did mount' );
 
         setInterval( () => {
             this.setState( prevState => ( { counter : prevState.counter += 1 } ) );
@@ -22,7 +25,8 @@ export default class App extends React.Component {
     }
 
     render() {
-        const { elements, counter } = this.state;
+        const { elements } = this.props;
+        const { counter } = this.state;
 
         if ( elements.length === 0 ) {
             return <div>No Elements</div>;

@@ -6,17 +6,24 @@ import PropTypes from 'prop-types';
  * @param {object} props
  * @return {JSX} module element
  */
-export const Module = ( { moduleId, counter } ) => {
-    const style = {
-        color : counter % 10 === 0 ? 'red' : 'black',
-    };
+export class Module extends React.Component {
+    componentDidMount() {
+        console.log( 'module did mount', this.props.moduleId );
+    }
 
-    return (
-        <div style={ style }>
-            Module Id: { moduleId }, counter: { counter }
-        </div>
-    );
-};
+    render() {
+        const { counter, moduleId } = this.props;
+        const style = {
+            color : counter % 10 === 0 ? 'red' : 'black',
+        };
+
+        return (
+            <div style={ style }>
+                Module Id: { moduleId }, counter: { counter }
+            </div>
+        );
+    }
+}
 
 Module.propTypes = {
     moduleId : PropTypes.string,

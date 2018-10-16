@@ -13,21 +13,20 @@ class PubSub {
         this.listeners = [];
     }
     subscribe( type, callback ) {
-        this.listeners.push( {
-            type,
-            callback,
-        } );
+        this.listeners[ type ] = this.listeners[ type ] || [];
+        this.listeners[ type ].push( callback );
     }
     unsubscribe( type, callback ) {
-        this.listeners = this.listeners.filter( action => {
-            return action.type !== type && action.callback !== callback;
+        this.listeners[ type ] = this.listeners[ type ].filter( cb => {
+            return cb !== callback;
         } );
     }
-    publish( type, payload ) {
-        const typedListeners = this.listeners.filter( action => action.type === type );
-        typedListeners.forEach( listener => {
+    publish( type, data ) {
+        const listeners = this.listeners[ type ] || [];
+
+        listeners.forEach( callback => {
             requestAnimationFrame( () => {
-                listener.callback( payload );
+                callback( data );
             } );
         } );
     }

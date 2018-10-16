@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import App from './App.jsx';
 import classNames from './App.css';
 
@@ -51,4 +51,9 @@ pubSub.subscribe( 'READY', () => {
 
 document.addEventListener( 'DOMContentLoaded', () => {
     pubSub.publish( 'READY' );
+} );
+
+pubSub.subscribe( 'DESTROY', () => {
+    const destoyed = unmountComponentAtNode( document.getElementById( 'app' ) );
+    console.log( 'is destoyed', destoyed );
 } );

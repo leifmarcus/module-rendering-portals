@@ -11,6 +11,7 @@ export default class App extends React.Component {
     constructor( props ) {
         super( props );
 
+        this.counterInterval = 0;
         this.state = {
             elements : [],
             counter  : 0,
@@ -19,9 +20,13 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log( 'app did mount' );
 
-        setInterval( () => {
+        this.counterInterval = setInterval( () => {
             this.setState( prevState => ( { counter : prevState.counter += 1 } ) );
         }, 500 );
+    }
+
+    componentWillUnmount() {
+        clearInterval( this.counterInterval );
     }
 
     render() {
